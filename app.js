@@ -1,38 +1,58 @@
-const path = require('path');
+const path = require("path");
 
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
-const errorController = require('./controllers/error');
-const mongoConnect = require('./util/database').mongoConnect;
-const User = require('./models/user');
+const errorController = require("./controllers/error");
+
+const User = require("./models/user");
 
 const app = express();
 
-app.set('view engine', 'ejs');
-app.set('views', 'views');
+app.set("view engine", "ejs");
+app.set("views", "views");
 
-const adminRoutes = require('./routes/admin');
-const shopRoutes = require('./routes/shop');
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  User.findById("678d32c44655eacf00c75c84")
-    .then(user => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
+  User.findById("678e898cfaf419d46f683d72")
+    .then((user) => {
+      req.user = user;
       next();
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 
-app.use('/admin', adminRoutes);
+app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+mongoose
+  .connect(
+    "mongodb+srv://bunty:4ozHNDozysKXwaMc@cluster0.accgv.mongodb.net/shop?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then((result) => {
+    User.findOne().then((user) => {
+      if (!user) {
+        const user = new User({
+          name: "Sagar",
+          email: "test@test.com",
+          cart: {
+            items: [],
+          },
+        });
+        user.save();
+      }
+    });
 
-mongoConnect(() => {
-  app.listen(3000);
-})
+    app.listen(3000);
+  })
+  .catch((err) => {
+    Console.log(err);
+  });
