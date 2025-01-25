@@ -8,12 +8,12 @@ const { validationResult } = require('express-validator');
 const User = require('../models/user');
 
 const transporter = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key:
-        'test'
-    }
-  })
+  // sendgridTransport({
+  //   auth: {
+  //     api_key:
+  //       'test'
+  //   }
+  // })
 );
 
 exports.getLogin = (req, res, next) => {
