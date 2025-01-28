@@ -13,7 +13,7 @@ const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const MONGODB_URI =
-  "mongodb+srv://bunty:4ozHNDozysKXwaMc@cluster0.accgv.mongodb.net/shop?w=majority&appName=Cluster0";
+ "mongodb+srv://bunty:4ozHNDozysKXwaMc@cluster0.accgv.mongodb.net/shop?w=majority&appName=Cluster0";
 
 const app = express();
 const store = new MongoDBStore({
@@ -55,7 +55,7 @@ app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 );
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/images',express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(
   session({
     secret: 'my secret',
