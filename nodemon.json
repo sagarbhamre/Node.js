@@ -1,0 +1,11 @@
+{
+    "env":{
+        "MONGO_USER":"bunty", 
+        "MONGO_PASSWORD":"4ozHNDozysKXwaMc",
+        "MONGO_DEFAULT_DATABASE":"shop",
+        "PORT":"3000",
+        "STRIPE_KEY":"sk_test_4eC39HqLyjWDarjtT1zdp7dc",
+        "STRIPE_SECRET":"sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+
+    }
+}
